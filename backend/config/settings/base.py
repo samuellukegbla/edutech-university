@@ -54,6 +54,7 @@ INSTALLED_APPS = [
 
     "apps.accounts.apps.AccountsConfig",
     "apps.common.apps.CommonConfig",
+    "apps.admissions.apps.AdmissionsConfig",
 ]
 
 MIDDLEWARE = [
