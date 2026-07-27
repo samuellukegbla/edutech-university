@@ -80,6 +80,15 @@ class Course(UUIDModel, TimeStampedModel):
         verbose_name = "Course"
         verbose_name_plural = "Courses"
 
+        indexes = [
+            models.Index(fields=["programme"]),
+            models.Index(fields=["department"]),
+            models.Index(fields=["level"]),
+            models.Index(fields=["semester"]),
+            models.Index(fields=["course_type"]),
+            models.Index(fields=["is_active"]),
+        ]
+
     def __str__(self):
         return f"{self.code} - {self.title}"
     
@@ -210,6 +219,10 @@ class CourseOffering(UUIDModel, TimeStampedModel):
                "Registration open date cannot be after the close date."
         )
 
+    def save(self, *args, **kwargs):
+        self.full_clean()
+        super().save(*args, **kwargs)
+
     class Meta:
         constraints = [
             models.UniqueConstraint(
@@ -246,7 +259,7 @@ class CourseRegistration(UUIDModel, TimeStampedModel):
 
     enrollment = models.ForeignKey(
         Enrollment,
-        on_delete=models.CASCADE,
+        on_delete=models.PROTECT,
         related_name="course_registrations",
     )
 
@@ -278,10 +291,17 @@ class CourseRegistration(UUIDModel, TimeStampedModel):
                 "Registration for this course is currently closed."
         )
 
-        if not self.enrollment.is_active:
+        if (
+            self.enrollment.status
+            != Enrollment.EnrollmentStatusChoices.ACTIVE
+):
             raise ValidationError(
-                "Inactive students cannot register for courses."
-        )
+                "Only active students can register for courses."
+            )
+
+    def save(self, *args, **kwargs):
+        self.full_clean()
+        super().save(*args, **kwargs)
 
     class Meta:
         constraints = [
@@ -379,6 +399,10 @@ class Assessment(UUIDModel, TimeStampedModel):
             raise ValidationError(
                 "Assessment weight must be between 0 and 100."
         )
+
+    def save(self, *args, **kwargs):
+        self.full_clean()
+        super().save(*args, **kwargs)
 
     class Meta:
         ordering = [
@@ -539,6 +563,10 @@ class FinalGrade(UUIDModel, TimeStampedModel):
         blank=True,
     )
 
+    def save(self, *args, **kwargs):
+        self.full_clean()
+        super().save(*args, **kwargs)
+
     class Meta:
         ordering = [
             "course_registration",
@@ -614,6 +642,9 @@ class GradeScale(UUIDModel, TimeStampedModel):
             f"({self.minimum_score}-{self.maximum_score})"
         )
 
+    def save(self, *args, **kwargs):
+        self.full_clean()
+        super().save(*args, **kwargs)
 
 class AcademicRecord(UUIDModel, TimeStampedModel):
     enrollment = models.ForeignKey(
