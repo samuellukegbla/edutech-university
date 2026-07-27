@@ -52,9 +52,14 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
 
+    "rest_framework",
+    "drf_spectacular",
+    "django_filters",
+
     "apps.accounts.apps.AccountsConfig",
     "apps.common.apps.CommonConfig",
     "apps.admissions.apps.AdmissionsConfig",
+    "apps.courses.apps.CoursesConfig",
 ]
 
 MIDDLEWARE = [
@@ -114,9 +119,28 @@ STATIC_URL = "static/"
 STATICFILES_DIRS = [BASE_DIR / "static"]
 STATIC_ROOT = BASE_DIR / "staticfiles" 
 
+# Media files (User uploads)
 MEDIA_URL = "/media/"
 MEDIA_ROOT = BASE_DIR / "media"
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 AUTH_USER_MODEL = "accounts.User"
+
+
+REST_FRAMEWORK = {
+    "DEFAULT_SCHEMA_CLASS": "drf_spectacular.openapi.AutoSchema",
+
+    "DEFAULT_RENDERER_CLASSES": [
+        "rest_framework.renderers.JSONRenderer",
+        "rest_framework.renderers.BrowsableAPIRenderer",
+    ],
+
+    "DEFAULT_FILTER_BACKENDS": [
+        "django_filters.rest_framework.DjangoFilterBackend",
+    ],
+
+    "EXCEPTION_HANDLER": (
+        "apps.common.exceptions.custom_exception_handler"
+    ),
+}

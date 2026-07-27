@@ -1,0 +1,3965 @@
+openapi: 3.0.3
+info:
+  title: ''
+  version: 0.0.0
+paths:
+  /api/schema/:
+    get:
+      operationId: schema_retrieve
+      description: |-
+        OpenApi3 schema for this API. Format can be selected via content negotiation.
+
+        - YAML: application/vnd.oai.openapi
+        - JSON: application/vnd.oai.openapi+json
+      parameters:
+      - in: query
+        name: format
+        schema:
+          type: string
+          enum:
+          - json
+          - yaml
+      - in: query
+        name: lang
+        schema:
+          type: string
+          enum:
+          - af
+          - ar
+          - ar-dz
+          - ast
+          - az
+          - be
+          - bg
+          - bn
+          - br
+          - bs
+          - ca
+          - ckb
+          - cs
+          - cy
+          - da
+          - de
+          - dsb
+          - el
+          - en
+          - en-au
+          - en-gb
+          - eo
+          - es
+          - es-ar
+          - es-co
+          - es-mx
+          - es-ni
+          - es-ve
+          - et
+          - eu
+          - fa
+          - fi
+          - fr
+          - fy
+          - ga
+          - gd
+          - gl
+          - he
+          - hi
+          - hr
+          - hsb
+          - ht
+          - hu
+          - hy
+          - ia
+          - id
+          - ig
+          - io
+          - is
+          - it
+          - ja
+          - ka
+          - kab
+          - kk
+          - km
+          - kn
+          - ko
+          - ky
+          - lb
+          - lt
+          - lv
+          - mk
+          - ml
+          - mn
+          - mr
+          - ms
+          - my
+          - nb
+          - ne
+          - nl
+          - nn
+          - os
+          - pa
+          - pl
+          - pt
+          - pt-br
+          - ro
+          - ru
+          - sk
+          - sl
+          - sq
+          - sr
+          - sr-latn
+          - sv
+          - sw
+          - ta
+          - te
+          - tg
+          - th
+          - tk
+          - tr
+          - tt
+          - udm
+          - ug
+          - uk
+          - ur
+          - uz
+          - vi
+          - zh-hans
+          - zh-hant
+      tags:
+      - schema
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/vnd.oai.openapi:
+              schema:
+                type: object
+                additionalProperties: {}
+            application/yaml:
+              schema:
+                type: object
+                additionalProperties: {}
+            application/vnd.oai.openapi+json:
+              schema:
+                type: object
+                additionalProperties: {}
+            application/json:
+              schema:
+                type: object
+                additionalProperties: {}
+          description: ''
+  /api/v1/admissions/academic-sessions/:
+    get:
+      operationId: v1_admissions_academic_sessions_list
+      description: Base ViewSet for all ETU APIs.
+      parameters:
+      - in: query
+        name: is_active
+        schema:
+          type: boolean
+      - in: query
+        name: is_current
+        schema:
+          type: boolean
+      - name: ordering
+        required: false
+        in: query
+        description: Which field to use when ordering the results.
+        schema:
+          type: string
+      - name: page
+        required: false
+        in: query
+        description: A page number within the paginated result set.
+        schema:
+          type: integer
+      - name: page_size
+        required: false
+        in: query
+        description: Number of results to return per page.
+        schema:
+          type: integer
+      - name: search
+        required: false
+        in: query
+        description: A search term.
+        schema:
+          type: string
+      tags:
+      - v1
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedAcademicSessionList'
+          description: ''
+    post:
+      operationId: v1_admissions_academic_sessions_create
+      description: Base ViewSet for all ETU APIs.
+      tags:
+      - v1
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AcademicSession'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/AcademicSession'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/AcademicSession'
+        required: true
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AcademicSession'
+          description: ''
+  /api/v1/admissions/academic-sessions/{id}/:
+    get:
+      operationId: v1_admissions_academic_sessions_retrieve
+      description: Base ViewSet for all ETU APIs.
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+        description: A UUID string identifying this Academic Session.
+        required: true
+      tags:
+      - v1
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AcademicSession'
+          description: ''
+    put:
+      operationId: v1_admissions_academic_sessions_update
+      description: Base ViewSet for all ETU APIs.
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+        description: A UUID string identifying this Academic Session.
+        required: true
+      tags:
+      - v1
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AcademicSession'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/AcademicSession'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/AcademicSession'
+        required: true
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AcademicSession'
+          description: ''
+    patch:
+      operationId: v1_admissions_academic_sessions_partial_update
+      description: Base ViewSet for all ETU APIs.
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+        description: A UUID string identifying this Academic Session.
+        required: true
+      tags:
+      - v1
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedAcademicSession'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedAcademicSession'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedAcademicSession'
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AcademicSession'
+          description: ''
+    delete:
+      operationId: v1_admissions_academic_sessions_destroy
+      description: Base ViewSet for all ETU APIs.
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+        description: A UUID string identifying this Academic Session.
+        required: true
+      tags:
+      - v1
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '204':
+          description: No response body
+  /api/v1/admissions/admission-decisions/:
+    get:
+      operationId: v1_admissions_admission_decisions_list
+      description: Base ViewSet for all ETU APIs.
+      parameters:
+      - in: query
+        name: decision
+        schema:
+          type: string
+          enum:
+          - ACCEPTED
+          - DEFERRED
+          - REJECTED
+          - WAITLISTED
+        description: |-
+          * `ACCEPTED` - Accepted
+          * `REJECTED` - Rejected
+          * `WAITLISTED` - Waitlisted
+          * `DEFERRED` - Deferred
+      - in: query
+        name: offer_letter_generated
+        schema:
+          type: boolean
+      - name: ordering
+        required: false
+        in: query
+        description: Which field to use when ordering the results.
+        schema:
+          type: string
+      - name: page
+        required: false
+        in: query
+        description: A page number within the paginated result set.
+        schema:
+          type: integer
+      - name: page_size
+        required: false
+        in: query
+        description: Number of results to return per page.
+        schema:
+          type: integer
+      - name: search
+        required: false
+        in: query
+        description: A search term.
+        schema:
+          type: string
+      tags:
+      - v1
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedAdmissionDecisionList'
+          description: ''
+    post:
+      operationId: v1_admissions_admission_decisions_create
+      description: Base ViewSet for all ETU APIs.
+      tags:
+      - v1
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AdmissionDecision'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/AdmissionDecision'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/AdmissionDecision'
+        required: true
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AdmissionDecision'
+          description: ''
+  /api/v1/admissions/admission-decisions/{id}/:
+    get:
+      operationId: v1_admissions_admission_decisions_retrieve
+      description: Base ViewSet for all ETU APIs.
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+        description: A UUID string identifying this Admission Decision.
+        required: true
+      tags:
+      - v1
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AdmissionDecision'
+          description: ''
+    put:
+      operationId: v1_admissions_admission_decisions_update
+      description: Base ViewSet for all ETU APIs.
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+        description: A UUID string identifying this Admission Decision.
+        required: true
+      tags:
+      - v1
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AdmissionDecision'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/AdmissionDecision'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/AdmissionDecision'
+        required: true
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AdmissionDecision'
+          description: ''
+    patch:
+      operationId: v1_admissions_admission_decisions_partial_update
+      description: Base ViewSet for all ETU APIs.
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+        description: A UUID string identifying this Admission Decision.
+        required: true
+      tags:
+      - v1
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedAdmissionDecision'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedAdmissionDecision'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedAdmissionDecision'
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AdmissionDecision'
+          description: ''
+    delete:
+      operationId: v1_admissions_admission_decisions_destroy
+      description: Base ViewSet for all ETU APIs.
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+        description: A UUID string identifying this Admission Decision.
+        required: true
+      tags:
+      - v1
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '204':
+          description: No response body
+  /api/v1/admissions/application-documents/:
+    get:
+      operationId: v1_admissions_application_documents_list
+      description: Base ViewSet for all ETU APIs.
+      parameters:
+      - in: query
+        name: document_type
+        schema:
+          type: string
+          enum:
+          - BIRTH_CERTIFICATE
+          - NATIONAL_ID
+          - OTHER
+          - PASSPORT
+          - RECOMMENDATION
+          - TRANSCRIPT
+          - WASSCE
+        description: |-
+          * `PASSPORT` - Passport Photograph
+          * `NATIONAL_ID` - National ID
+          * `BIRTH_CERTIFICATE` - Birth Certificate
+          * `WASSCE` - WASSCE/WAEC Result
+          * `TRANSCRIPT` - Academic Transcript
+          * `RECOMMENDATION` - Recommendation Letter
+          * `OTHER` - Other
+      - name: ordering
+        required: false
+        in: query
+        description: Which field to use when ordering the results.
+        schema:
+          type: string
+      - name: page
+        required: false
+        in: query
+        description: A page number within the paginated result set.
+        schema:
+          type: integer
+      - name: page_size
+        required: false
+        in: query
+        description: Number of results to return per page.
+        schema:
+          type: integer
+      - name: search
+        required: false
+        in: query
+        description: A search term.
+        schema:
+          type: string
+      - in: query
+        name: verified
+        schema:
+          type: boolean
+      tags:
+      - v1
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedApplicationDocumentList'
+          description: ''
+    post:
+      operationId: v1_admissions_application_documents_create
+      description: Base ViewSet for all ETU APIs.
+      tags:
+      - v1
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ApplicationDocument'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/ApplicationDocument'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/ApplicationDocument'
+        required: true
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApplicationDocument'
+          description: ''
+  /api/v1/admissions/application-documents/{id}/:
+    get:
+      operationId: v1_admissions_application_documents_retrieve
+      description: Base ViewSet for all ETU APIs.
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+        description: A UUID string identifying this Application Document.
+        required: true
+      tags:
+      - v1
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApplicationDocument'
+          description: ''
+    put:
+      operationId: v1_admissions_application_documents_update
+      description: Base ViewSet for all ETU APIs.
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+        description: A UUID string identifying this Application Document.
+        required: true
+      tags:
+      - v1
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ApplicationDocument'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/ApplicationDocument'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/ApplicationDocument'
+        required: true
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApplicationDocument'
+          description: ''
+    patch:
+      operationId: v1_admissions_application_documents_partial_update
+      description: Base ViewSet for all ETU APIs.
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+        description: A UUID string identifying this Application Document.
+        required: true
+      tags:
+      - v1
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedApplicationDocument'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedApplicationDocument'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedApplicationDocument'
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApplicationDocument'
+          description: ''
+    delete:
+      operationId: v1_admissions_application_documents_destroy
+      description: Base ViewSet for all ETU APIs.
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+        description: A UUID string identifying this Application Document.
+        required: true
+      tags:
+      - v1
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '204':
+          description: No response body
+  /api/v1/admissions/applications/:
+    get:
+      operationId: v1_admissions_applications_list
+      description: Base ViewSet for all ETU APIs.
+      parameters:
+      - in: query
+        name: academic_session
+        schema:
+          type: string
+          format: uuid
+      - name: ordering
+        required: false
+        in: query
+        description: Which field to use when ordering the results.
+        schema:
+          type: string
+      - name: page
+        required: false
+        in: query
+        description: A page number within the paginated result set.
+        schema:
+          type: integer
+      - name: page_size
+        required: false
+        in: query
+        description: Number of results to return per page.
+        schema:
+          type: integer
+      - in: query
+        name: programme
+        schema:
+          type: string
+          format: uuid
+      - name: search
+        required: false
+        in: query
+        description: A search term.
+        schema:
+          type: string
+      - in: query
+        name: status
+        schema:
+          type: string
+          enum:
+          - ACCEPTED
+          - DEFERRED
+          - DRAFT
+          - REJECTED
+          - SUBMITTED
+          - UNDER_REVIEW
+          - WAITLISTED
+        description: |-
+          * `DRAFT` - Draft
+          * `SUBMITTED` - Submitted
+          * `UNDER_REVIEW` - Under Review
+          * `ACCEPTED` - Accepted
+          * `REJECTED` - Rejected
+          * `WAITLISTED` - Waitlisted
+          * `DEFERRED` - Deferred
+      tags:
+      - v1
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedStudentApplicationList'
+          description: ''
+    post:
+      operationId: v1_admissions_applications_create
+      description: Base ViewSet for all ETU APIs.
+      tags:
+      - v1
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/StudentApplication'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/StudentApplication'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/StudentApplication'
+        required: true
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StudentApplication'
+          description: ''
+  /api/v1/admissions/applications/{id}/:
+    get:
+      operationId: v1_admissions_applications_retrieve
+      description: Base ViewSet for all ETU APIs.
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+        description: A UUID string identifying this Student Application.
+        required: true
+      tags:
+      - v1
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StudentApplication'
+          description: ''
+    put:
+      operationId: v1_admissions_applications_update
+      description: Base ViewSet for all ETU APIs.
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+        description: A UUID string identifying this Student Application.
+        required: true
+      tags:
+      - v1
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/StudentApplication'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/StudentApplication'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/StudentApplication'
+        required: true
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StudentApplication'
+          description: ''
+    patch:
+      operationId: v1_admissions_applications_partial_update
+      description: Base ViewSet for all ETU APIs.
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+        description: A UUID string identifying this Student Application.
+        required: true
+      tags:
+      - v1
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedStudentApplication'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedStudentApplication'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedStudentApplication'
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StudentApplication'
+          description: ''
+    delete:
+      operationId: v1_admissions_applications_destroy
+      description: Base ViewSet for all ETU APIs.
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+        description: A UUID string identifying this Student Application.
+        required: true
+      tags:
+      - v1
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '204':
+          description: No response body
+  /api/v1/admissions/departments/:
+    get:
+      operationId: v1_admissions_departments_list
+      description: Base ViewSet for all ETU APIs.
+      parameters:
+      - in: query
+        name: faculty
+        schema:
+          type: string
+          format: uuid
+      - in: query
+        name: is_active
+        schema:
+          type: boolean
+      - name: ordering
+        required: false
+        in: query
+        description: Which field to use when ordering the results.
+        schema:
+          type: string
+      - name: page
+        required: false
+        in: query
+        description: A page number within the paginated result set.
+        schema:
+          type: integer
+      - name: page_size
+        required: false
+        in: query
+        description: Number of results to return per page.
+        schema:
+          type: integer
+      - name: search
+        required: false
+        in: query
+        description: A search term.
+        schema:
+          type: string
+      tags:
+      - v1
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedDepartmentList'
+          description: ''
+    post:
+      operationId: v1_admissions_departments_create
+      description: Base ViewSet for all ETU APIs.
+      tags:
+      - v1
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Department'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Department'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Department'
+        required: true
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Department'
+          description: ''
+  /api/v1/admissions/departments/{id}/:
+    get:
+      operationId: v1_admissions_departments_retrieve
+      description: Base ViewSet for all ETU APIs.
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+        description: A UUID string identifying this Department.
+        required: true
+      tags:
+      - v1
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Department'
+          description: ''
+    put:
+      operationId: v1_admissions_departments_update
+      description: Base ViewSet for all ETU APIs.
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+        description: A UUID string identifying this Department.
+        required: true
+      tags:
+      - v1
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Department'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Department'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Department'
+        required: true
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Department'
+          description: ''
+    patch:
+      operationId: v1_admissions_departments_partial_update
+      description: Base ViewSet for all ETU APIs.
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+        description: A UUID string identifying this Department.
+        required: true
+      tags:
+      - v1
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedDepartment'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedDepartment'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedDepartment'
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Department'
+          description: ''
+    delete:
+      operationId: v1_admissions_departments_destroy
+      description: Base ViewSet for all ETU APIs.
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+        description: A UUID string identifying this Department.
+        required: true
+      tags:
+      - v1
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '204':
+          description: No response body
+  /api/v1/admissions/enrollments/:
+    get:
+      operationId: v1_admissions_enrollments_list
+      description: Base ViewSet for all ETU APIs.
+      parameters:
+      - in: query
+        name: academic_session
+        schema:
+          type: string
+          format: uuid
+      - name: page
+        required: false
+        in: query
+        description: A page number within the paginated result set.
+        schema:
+          type: integer
+      - name: page_size
+        required: false
+        in: query
+        description: Number of results to return per page.
+        schema:
+          type: integer
+      - in: query
+        name: programme
+        schema:
+          type: string
+          format: uuid
+      - in: query
+        name: semester
+        schema:
+          type: string
+          format: uuid
+      - in: query
+        name: status
+        schema:
+          type: string
+          enum:
+          - ACTIVE
+          - DEFERRED
+          - GRADUATED
+          - SUSPENDED
+          - WITHDRAWN
+        description: |-
+          * `ACTIVE` - Active
+          * `DEFERRED` - Deferred
+          * `SUSPENDED` - Suspended
+          * `WITHDRAWN` - Withdrawn
+          * `GRADUATED` - Graduated
+      tags:
+      - v1
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedEnrollmentList'
+          description: ''
+    post:
+      operationId: v1_admissions_enrollments_create
+      description: Base ViewSet for all ETU APIs.
+      tags:
+      - v1
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Enrollment'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Enrollment'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Enrollment'
+        required: true
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Enrollment'
+          description: ''
+  /api/v1/admissions/enrollments/{id}/:
+    get:
+      operationId: v1_admissions_enrollments_retrieve
+      description: Base ViewSet for all ETU APIs.
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+        description: A UUID string identifying this Enrollment.
+        required: true
+      tags:
+      - v1
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Enrollment'
+          description: ''
+    put:
+      operationId: v1_admissions_enrollments_update
+      description: Base ViewSet for all ETU APIs.
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+        description: A UUID string identifying this Enrollment.
+        required: true
+      tags:
+      - v1
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Enrollment'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Enrollment'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Enrollment'
+        required: true
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Enrollment'
+          description: ''
+    patch:
+      operationId: v1_admissions_enrollments_partial_update
+      description: Base ViewSet for all ETU APIs.
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+        description: A UUID string identifying this Enrollment.
+        required: true
+      tags:
+      - v1
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedEnrollment'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedEnrollment'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedEnrollment'
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Enrollment'
+          description: ''
+    delete:
+      operationId: v1_admissions_enrollments_destroy
+      description: Base ViewSet for all ETU APIs.
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+        description: A UUID string identifying this Enrollment.
+        required: true
+      tags:
+      - v1
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '204':
+          description: No response body
+  /api/v1/admissions/faculties/:
+    get:
+      operationId: v1_admissions_faculties_list
+      description: Base ViewSet for all ETU APIs.
+      parameters:
+      - in: query
+        name: is_active
+        schema:
+          type: boolean
+      - name: ordering
+        required: false
+        in: query
+        description: Which field to use when ordering the results.
+        schema:
+          type: string
+      - name: page
+        required: false
+        in: query
+        description: A page number within the paginated result set.
+        schema:
+          type: integer
+      - name: page_size
+        required: false
+        in: query
+        description: Number of results to return per page.
+        schema:
+          type: integer
+      - name: search
+        required: false
+        in: query
+        description: A search term.
+        schema:
+          type: string
+      tags:
+      - v1
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedFacultyList'
+          description: ''
+    post:
+      operationId: v1_admissions_faculties_create
+      description: Base ViewSet for all ETU APIs.
+      tags:
+      - v1
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Faculty'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Faculty'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Faculty'
+        required: true
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Faculty'
+          description: ''
+  /api/v1/admissions/faculties/{id}/:
+    get:
+      operationId: v1_admissions_faculties_retrieve
+      description: Base ViewSet for all ETU APIs.
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+        description: A UUID string identifying this Faculty.
+        required: true
+      tags:
+      - v1
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Faculty'
+          description: ''
+    put:
+      operationId: v1_admissions_faculties_update
+      description: Base ViewSet for all ETU APIs.
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+        description: A UUID string identifying this Faculty.
+        required: true
+      tags:
+      - v1
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Faculty'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Faculty'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Faculty'
+        required: true
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Faculty'
+          description: ''
+    patch:
+      operationId: v1_admissions_faculties_partial_update
+      description: Base ViewSet for all ETU APIs.
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+        description: A UUID string identifying this Faculty.
+        required: true
+      tags:
+      - v1
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedFaculty'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedFaculty'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedFaculty'
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Faculty'
+          description: ''
+    delete:
+      operationId: v1_admissions_faculties_destroy
+      description: Base ViewSet for all ETU APIs.
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+        description: A UUID string identifying this Faculty.
+        required: true
+      tags:
+      - v1
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '204':
+          description: No response body
+  /api/v1/admissions/programmes/:
+    get:
+      operationId: v1_admissions_programmes_list
+      description: Base ViewSet for all ETU APIs.
+      parameters:
+      - in: query
+        name: award
+        schema:
+          type: string
+      - in: query
+        name: department
+        schema:
+          type: string
+          format: uuid
+      - in: query
+        name: is_active
+        schema:
+          type: boolean
+      - name: ordering
+        required: false
+        in: query
+        description: Which field to use when ordering the results.
+        schema:
+          type: string
+      - name: page
+        required: false
+        in: query
+        description: A page number within the paginated result set.
+        schema:
+          type: integer
+      - name: page_size
+        required: false
+        in: query
+        description: Number of results to return per page.
+        schema:
+          type: integer
+      - name: search
+        required: false
+        in: query
+        description: A search term.
+        schema:
+          type: string
+      tags:
+      - v1
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedProgrammeList'
+          description: ''
+    post:
+      operationId: v1_admissions_programmes_create
+      description: Base ViewSet for all ETU APIs.
+      tags:
+      - v1
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Programme'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Programme'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Programme'
+        required: true
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Programme'
+          description: ''
+  /api/v1/admissions/programmes/{id}/:
+    get:
+      operationId: v1_admissions_programmes_retrieve
+      description: Base ViewSet for all ETU APIs.
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+        description: A UUID string identifying this Programme.
+        required: true
+      tags:
+      - v1
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Programme'
+          description: ''
+    put:
+      operationId: v1_admissions_programmes_update
+      description: Base ViewSet for all ETU APIs.
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+        description: A UUID string identifying this Programme.
+        required: true
+      tags:
+      - v1
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Programme'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Programme'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Programme'
+        required: true
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Programme'
+          description: ''
+    patch:
+      operationId: v1_admissions_programmes_partial_update
+      description: Base ViewSet for all ETU APIs.
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+        description: A UUID string identifying this Programme.
+        required: true
+      tags:
+      - v1
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedProgramme'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedProgramme'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedProgramme'
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Programme'
+          description: ''
+    delete:
+      operationId: v1_admissions_programmes_destroy
+      description: Base ViewSet for all ETU APIs.
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+        description: A UUID string identifying this Programme.
+        required: true
+      tags:
+      - v1
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '204':
+          description: No response body
+  /api/v1/admissions/semesters/:
+    get:
+      operationId: v1_admissions_semesters_list
+      description: Base ViewSet for all ETU APIs.
+      parameters:
+      - in: query
+        name: academic_session
+        schema:
+          type: string
+          format: uuid
+      - in: query
+        name: is_active
+        schema:
+          type: boolean
+      - in: query
+        name: is_current
+        schema:
+          type: boolean
+      - in: query
+        name: name
+        schema:
+          type: string
+          enum:
+          - FIRST
+          - SECOND
+          - SUMMER
+        description: |-
+          * `FIRST` - First Semester
+          * `SECOND` - Second Semester
+          * `SUMMER` - Summer Semester
+      - name: ordering
+        required: false
+        in: query
+        description: Which field to use when ordering the results.
+        schema:
+          type: string
+      - name: page
+        required: false
+        in: query
+        description: A page number within the paginated result set.
+        schema:
+          type: integer
+      - name: page_size
+        required: false
+        in: query
+        description: Number of results to return per page.
+        schema:
+          type: integer
+      - name: search
+        required: false
+        in: query
+        description: A search term.
+        schema:
+          type: string
+      tags:
+      - v1
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedSemesterList'
+          description: ''
+    post:
+      operationId: v1_admissions_semesters_create
+      description: Base ViewSet for all ETU APIs.
+      tags:
+      - v1
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Semester'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Semester'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Semester'
+        required: true
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Semester'
+          description: ''
+  /api/v1/admissions/semesters/{id}/:
+    get:
+      operationId: v1_admissions_semesters_retrieve
+      description: Base ViewSet for all ETU APIs.
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+        description: A UUID string identifying this Semester.
+        required: true
+      tags:
+      - v1
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Semester'
+          description: ''
+    put:
+      operationId: v1_admissions_semesters_update
+      description: Base ViewSet for all ETU APIs.
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+        description: A UUID string identifying this Semester.
+        required: true
+      tags:
+      - v1
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Semester'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Semester'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Semester'
+        required: true
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Semester'
+          description: ''
+    patch:
+      operationId: v1_admissions_semesters_partial_update
+      description: Base ViewSet for all ETU APIs.
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+        description: A UUID string identifying this Semester.
+        required: true
+      tags:
+      - v1
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedSemester'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedSemester'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedSemester'
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Semester'
+          description: ''
+    delete:
+      operationId: v1_admissions_semesters_destroy
+      description: Base ViewSet for all ETU APIs.
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+        description: A UUID string identifying this Semester.
+        required: true
+      tags:
+      - v1
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '204':
+          description: No response body
+  /api/v1/admissions/student-profiles/:
+    get:
+      operationId: v1_admissions_student_profiles_list
+      description: Base ViewSet for all ETU APIs.
+      parameters:
+      - in: query
+        name: blood_group
+        schema:
+          type: string
+          enum:
+          - A+
+          - A-
+          - AB+
+          - AB-
+          - B+
+          - B-
+          - O+
+          - O-
+        description: |-
+          * `A+` - A+
+          * `A-` - A-
+          * `B+` - B+
+          * `B-` - B-
+          * `AB+` - AB+
+          * `AB-` - AB-
+          * `O+` - O+
+          * `O-` - O-
+      - in: query
+        name: marital_status
+        schema:
+          type: string
+          enum:
+          - DIVORCED
+          - MARRIED
+          - SINGLE
+          - WIDOWED
+        description: |-
+          * `SINGLE` - Single
+          * `MARRIED` - Married
+          * `DIVORCED` - Divorced
+          * `WIDOWED` - Widowed
+      - name: page
+        required: false
+        in: query
+        description: A page number within the paginated result set.
+        schema:
+          type: integer
+      - name: page_size
+        required: false
+        in: query
+        description: Number of results to return per page.
+        schema:
+          type: integer
+      tags:
+      - v1
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedStudentProfileList'
+          description: ''
+    post:
+      operationId: v1_admissions_student_profiles_create
+      description: Base ViewSet for all ETU APIs.
+      tags:
+      - v1
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/StudentProfile'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/StudentProfile'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/StudentProfile'
+        required: true
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StudentProfile'
+          description: ''
+  /api/v1/admissions/student-profiles/{id}/:
+    get:
+      operationId: v1_admissions_student_profiles_retrieve
+      description: Base ViewSet for all ETU APIs.
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+        description: A UUID string identifying this Student Profile.
+        required: true
+      tags:
+      - v1
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StudentProfile'
+          description: ''
+    put:
+      operationId: v1_admissions_student_profiles_update
+      description: Base ViewSet for all ETU APIs.
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+        description: A UUID string identifying this Student Profile.
+        required: true
+      tags:
+      - v1
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/StudentProfile'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/StudentProfile'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/StudentProfile'
+        required: true
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StudentProfile'
+          description: ''
+    patch:
+      operationId: v1_admissions_student_profiles_partial_update
+      description: Base ViewSet for all ETU APIs.
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+        description: A UUID string identifying this Student Profile.
+        required: true
+      tags:
+      - v1
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedStudentProfile'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedStudentProfile'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedStudentProfile'
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StudentProfile'
+          description: ''
+    delete:
+      operationId: v1_admissions_student_profiles_destroy
+      description: Base ViewSet for all ETU APIs.
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+        description: A UUID string identifying this Student Profile.
+        required: true
+      tags:
+      - v1
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '204':
+          description: No response body
+  /api/v1/courses/:
+    get:
+      operationId: v1_courses_list
+      parameters:
+      - in: query
+        name: code
+        schema:
+          type: string
+      - in: query
+        name: course_type
+        schema:
+          type: string
+      - in: query
+        name: department
+        schema:
+          type: string
+          format: uuid
+      - in: query
+        name: is_active
+        schema:
+          type: boolean
+      - in: query
+        name: level
+        schema:
+          type: integer
+      - name: ordering
+        required: false
+        in: query
+        description: Which field to use when ordering the results.
+        schema:
+          type: string
+      - name: page
+        required: false
+        in: query
+        description: A page number within the paginated result set.
+        schema:
+          type: integer
+      - name: page_size
+        required: false
+        in: query
+        description: Number of results to return per page.
+        schema:
+          type: integer
+      - in: query
+        name: programme
+        schema:
+          type: string
+          format: uuid
+      - name: search
+        required: false
+        in: query
+        description: A search term.
+        schema:
+          type: string
+      - in: query
+        name: semester
+        schema:
+          type: string
+      - in: query
+        name: title
+        schema:
+          type: string
+      tags:
+      - v1
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedCourseList'
+          description: ''
+    post:
+      operationId: v1_courses_create
+      tags:
+      - v1
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Course'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Course'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Course'
+        required: true
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Course'
+          description: ''
+  /api/v1/courses/{id}/:
+    get:
+      operationId: v1_courses_retrieve
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+        description: A UUID string identifying this Course.
+        required: true
+      tags:
+      - v1
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Course'
+          description: ''
+    put:
+      operationId: v1_courses_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+        description: A UUID string identifying this Course.
+        required: true
+      tags:
+      - v1
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Course'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Course'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Course'
+        required: true
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Course'
+          description: ''
+    patch:
+      operationId: v1_courses_partial_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+        description: A UUID string identifying this Course.
+        required: true
+      tags:
+      - v1
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedCourse'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedCourse'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedCourse'
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Course'
+          description: ''
+    delete:
+      operationId: v1_courses_destroy
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+        description: A UUID string identifying this Course.
+        required: true
+      tags:
+      - v1
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '204':
+          description: No response body
+components:
+  schemas:
+    AcademicSession:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          readOnly: true
+        name:
+          type: string
+          description: 'Example: 2026/2027'
+          maxLength: 20
+        start_date:
+          type: string
+          format: date
+        end_date:
+          type: string
+          format: date
+        is_current:
+          type: boolean
+        is_active:
+          type: boolean
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+        updated_at:
+          type: string
+          format: date-time
+          readOnly: true
+      required:
+      - created_at
+      - end_date
+      - id
+      - name
+      - start_date
+      - updated_at
+    AdmissionDecision:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          readOnly: true
+        application:
+          type: string
+          format: uuid
+        application_number:
+          type: string
+          readOnly: true
+        decision:
+          $ref: '#/components/schemas/DecisionEnum'
+        decision_display:
+          type: string
+          readOnly: true
+        review_comments:
+          type: string
+        reviewed_by:
+          type: string
+          format: uuid
+          readOnly: true
+          nullable: true
+        reviewed_by_username:
+          type: string
+          readOnly: true
+        decision_date:
+          type: string
+          format: date-time
+          readOnly: true
+        offer_letter_generated:
+          type: boolean
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+        updated_at:
+          type: string
+          format: date-time
+          readOnly: true
+      required:
+      - application
+      - application_number
+      - created_at
+      - decision
+      - decision_date
+      - decision_display
+      - id
+      - reviewed_by
+      - reviewed_by_username
+      - updated_at
+    ApplicationDocument:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          readOnly: true
+        application:
+          type: string
+          format: uuid
+        application_number:
+          type: string
+          readOnly: true
+        document_type:
+          $ref: '#/components/schemas/DocumentTypeEnum'
+        document_type_display:
+          type: string
+          readOnly: true
+        file:
+          type: string
+          format: uri
+        description:
+          type: string
+          maxLength: 255
+        verified:
+          type: boolean
+        verified_at:
+          type: string
+          format: date-time
+          readOnly: true
+          nullable: true
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+        updated_at:
+          type: string
+          format: date-time
+          readOnly: true
+      required:
+      - application
+      - application_number
+      - created_at
+      - document_type
+      - document_type_display
+      - file
+      - id
+      - updated_at
+      - verified_at
+    BlankEnum:
+      enum:
+      - ''
+    BloodGroupEnum:
+      enum:
+      - A+
+      - A-
+      - B+
+      - B-
+      - AB+
+      - AB-
+      - O+
+      - O-
+      type: string
+      description: |-
+        * `A+` - A+
+        * `A-` - A-
+        * `B+` - B+
+        * `B-` - B-
+        * `AB+` - AB+
+        * `AB-` - AB-
+        * `O+` - O+
+        * `O-` - O-
+    Course:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          readOnly: true
+        code:
+          type: string
+          maxLength: 20
+        title:
+          type: string
+          maxLength: 200
+        description:
+          type: string
+        department:
+          type: string
+          format: uuid
+        department_name:
+          type: string
+          readOnly: true
+        programme:
+          type: string
+          format: uuid
+        programme_name:
+          type: string
+          readOnly: true
+        credit_hours:
+          type: integer
+          maximum: 9223372036854775807
+          minimum: 0
+          format: int64
+        level:
+          allOf:
+          - $ref: '#/components/schemas/LevelEnum'
+          minimum: 0
+          maximum: 9223372036854775807
+        semester:
+          $ref: '#/components/schemas/SemesterEnum'
+        course_type:
+          $ref: '#/components/schemas/CourseTypeEnum'
+        is_active:
+          type: boolean
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+        updated_at:
+          type: string
+          format: date-time
+          readOnly: true
+      required:
+      - code
+      - created_at
+      - credit_hours
+      - department
+      - department_name
+      - id
+      - level
+      - programme
+      - programme_name
+      - semester
+      - title
+      - updated_at
+    CourseTypeEnum:
+      enum:
+      - CORE
+      - ELECTIVE
+      type: string
+      description: |-
+        * `CORE` - Core
+        * `ELECTIVE` - Elective
+    DecisionEnum:
+      enum:
+      - ACCEPTED
+      - REJECTED
+      - WAITLISTED
+      - DEFERRED
+      type: string
+      description: |-
+        * `ACCEPTED` - Accepted
+        * `REJECTED` - Rejected
+        * `WAITLISTED` - Waitlisted
+        * `DEFERRED` - Deferred
+    Department:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          readOnly: true
+        code:
+          type: string
+          maxLength: 20
+        name:
+          type: string
+          maxLength: 150
+        description:
+          type: string
+        faculty:
+          type: string
+          format: uuid
+        faculty_name:
+          type: string
+          readOnly: true
+        is_active:
+          type: boolean
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+        updated_at:
+          type: string
+          format: date-time
+          readOnly: true
+      required:
+      - code
+      - created_at
+      - faculty
+      - faculty_name
+      - id
+      - name
+      - updated_at
+    DocumentTypeEnum:
+      enum:
+      - PASSPORT
+      - NATIONAL_ID
+      - BIRTH_CERTIFICATE
+      - WASSCE
+      - TRANSCRIPT
+      - RECOMMENDATION
+      - OTHER
+      type: string
+      description: |-
+        * `PASSPORT` - Passport Photograph
+        * `NATIONAL_ID` - National ID
+        * `BIRTH_CERTIFICATE` - Birth Certificate
+        * `WASSCE` - WASSCE/WAEC Result
+        * `TRANSCRIPT` - Academic Transcript
+        * `RECOMMENDATION` - Recommendation Letter
+        * `OTHER` - Other
+    Enrollment:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          readOnly: true
+        application:
+          type: string
+          format: uuid
+        application_number:
+          type: string
+          readOnly: true
+        student_id:
+          type: string
+          readOnly: true
+        student_name:
+          type: string
+          readOnly: true
+        programme:
+          type: string
+          format: uuid
+        programme_name:
+          type: string
+          readOnly: true
+        academic_session:
+          type: string
+          format: uuid
+        academic_session_name:
+          type: string
+          readOnly: true
+        semester:
+          type: string
+          format: uuid
+        semester_name:
+          type: string
+          readOnly: true
+        status:
+          $ref: '#/components/schemas/EnrollmentStatusEnum'
+        status_display:
+          type: string
+          readOnly: true
+        enrollment_date:
+          type: string
+          format: date
+          readOnly: true
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+        updated_at:
+          type: string
+          format: date-time
+          readOnly: true
+      required:
+      - academic_session
+      - academic_session_name
+      - application
+      - application_number
+      - created_at
+      - enrollment_date
+      - id
+      - programme
+      - programme_name
+      - semester
+      - semester_name
+      - status_display
+      - student_id
+      - student_name
+      - updated_at
+    EnrollmentStatusEnum:
+      enum:
+      - ACTIVE
+      - DEFERRED
+      - SUSPENDED
+      - WITHDRAWN
+      - GRADUATED
+      type: string
+      description: |-
+        * `ACTIVE` - Active
+        * `DEFERRED` - Deferred
+        * `SUSPENDED` - Suspended
+        * `WITHDRAWN` - Withdrawn
+        * `GRADUATED` - Graduated
+    Faculty:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          readOnly: true
+        code:
+          type: string
+          maxLength: 10
+        name:
+          type: string
+          maxLength: 150
+        description:
+          type: string
+        is_active:
+          type: boolean
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+        updated_at:
+          type: string
+          format: date-time
+          readOnly: true
+      required:
+      - code
+      - created_at
+      - id
+      - name
+      - updated_at
+    GenderEnum:
+      enum:
+      - M
+      - F
+      - O
+      type: string
+      description: |-
+        * `M` - Male
+        * `F` - Female
+        * `O` - Other
+    LevelEnum:
+      enum:
+      - 100
+      - 200
+      - 300
+      - 400
+      - 500
+      type: integer
+      description: |-
+        * `100` - 100 Level
+        * `200` - 200 Level
+        * `300` - 300 Level
+        * `400` - 400 Level
+        * `500` - 500 Level
+    MaritalStatusEnum:
+      enum:
+      - SINGLE
+      - MARRIED
+      - DIVORCED
+      - WIDOWED
+      type: string
+      description: |-
+        * `SINGLE` - Single
+        * `MARRIED` - Married
+        * `DIVORCED` - Divorced
+        * `WIDOWED` - Widowed
+    NameEnum:
+      enum:
+      - FIRST
+      - SECOND
+      - SUMMER
+      type: string
+      description: |-
+        * `FIRST` - First Semester
+        * `SECOND` - Second Semester
+        * `SUMMER` - Summer Semester
+    PaginatedAcademicSessionList:
+      type: object
+      required:
+      - count
+      - results
+      properties:
+        count:
+          type: integer
+          example: 123
+        next:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=4
+        previous:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=2
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/AcademicSession'
+    PaginatedAdmissionDecisionList:
+      type: object
+      required:
+      - count
+      - results
+      properties:
+        count:
+          type: integer
+          example: 123
+        next:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=4
+        previous:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=2
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/AdmissionDecision'
+    PaginatedApplicationDocumentList:
+      type: object
+      required:
+      - count
+      - results
+      properties:
+        count:
+          type: integer
+          example: 123
+        next:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=4
+        previous:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=2
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/ApplicationDocument'
+    PaginatedCourseList:
+      type: object
+      required:
+      - count
+      - results
+      properties:
+        count:
+          type: integer
+          example: 123
+        next:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=4
+        previous:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=2
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/Course'
+    PaginatedDepartmentList:
+      type: object
+      required:
+      - count
+      - results
+      properties:
+        count:
+          type: integer
+          example: 123
+        next:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=4
+        previous:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=2
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/Department'
+    PaginatedEnrollmentList:
+      type: object
+      required:
+      - count
+      - results
+      properties:
+        count:
+          type: integer
+          example: 123
+        next:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=4
+        previous:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=2
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/Enrollment'
+    PaginatedFacultyList:
+      type: object
+      required:
+      - count
+      - results
+      properties:
+        count:
+          type: integer
+          example: 123
+        next:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=4
+        previous:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=2
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/Faculty'
+    PaginatedProgrammeList:
+      type: object
+      required:
+      - count
+      - results
+      properties:
+        count:
+          type: integer
+          example: 123
+        next:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=4
+        previous:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=2
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/Programme'
+    PaginatedSemesterList:
+      type: object
+      required:
+      - count
+      - results
+      properties:
+        count:
+          type: integer
+          example: 123
+        next:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=4
+        previous:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=2
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/Semester'
+    PaginatedStudentApplicationList:
+      type: object
+      required:
+      - count
+      - results
+      properties:
+        count:
+          type: integer
+          example: 123
+        next:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=4
+        previous:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=2
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/StudentApplication'
+    PaginatedStudentProfileList:
+      type: object
+      required:
+      - count
+      - results
+      properties:
+        count:
+          type: integer
+          example: 123
+        next:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=4
+        previous:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=2
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/StudentProfile'
+    PatchedAcademicSession:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          readOnly: true
+        name:
+          type: string
+          description: 'Example: 2026/2027'
+          maxLength: 20
+        start_date:
+          type: string
+          format: date
+        end_date:
+          type: string
+          format: date
+        is_current:
+          type: boolean
+        is_active:
+          type: boolean
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+        updated_at:
+          type: string
+          format: date-time
+          readOnly: true
+    PatchedAdmissionDecision:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          readOnly: true
+        application:
+          type: string
+          format: uuid
+        application_number:
+          type: string
+          readOnly: true
+        decision:
+          $ref: '#/components/schemas/DecisionEnum'
+        decision_display:
+          type: string
+          readOnly: true
+        review_comments:
+          type: string
+        reviewed_by:
+          type: string
+          format: uuid
+          readOnly: true
+          nullable: true
+        reviewed_by_username:
+          type: string
+          readOnly: true
+        decision_date:
+          type: string
+          format: date-time
+          readOnly: true
+        offer_letter_generated:
+          type: boolean
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+        updated_at:
+          type: string
+          format: date-time
+          readOnly: true
+    PatchedApplicationDocument:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          readOnly: true
+        application:
+          type: string
+          format: uuid
+        application_number:
+          type: string
+          readOnly: true
+        document_type:
+          $ref: '#/components/schemas/DocumentTypeEnum'
+        document_type_display:
+          type: string
+          readOnly: true
+        file:
+          type: string
+          format: uri
+        description:
+          type: string
+          maxLength: 255
+        verified:
+          type: boolean
+        verified_at:
+          type: string
+          format: date-time
+          readOnly: true
+          nullable: true
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+        updated_at:
+          type: string
+          format: date-time
+          readOnly: true
+    PatchedCourse:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          readOnly: true
+        code:
+          type: string
+          maxLength: 20
+        title:
+          type: string
+          maxLength: 200
+        description:
+          type: string
+        department:
+          type: string
+          format: uuid
+        department_name:
+          type: string
+          readOnly: true
+        programme:
+          type: string
+          format: uuid
+        programme_name:
+          type: string
+          readOnly: true
+        credit_hours:
+          type: integer
+          maximum: 9223372036854775807
+          minimum: 0
+          format: int64
+        level:
+          allOf:
+          - $ref: '#/components/schemas/LevelEnum'
+          minimum: 0
+          maximum: 9223372036854775807
+        semester:
+          $ref: '#/components/schemas/SemesterEnum'
+        course_type:
+          $ref: '#/components/schemas/CourseTypeEnum'
+        is_active:
+          type: boolean
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+        updated_at:
+          type: string
+          format: date-time
+          readOnly: true
+    PatchedDepartment:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          readOnly: true
+        code:
+          type: string
+          maxLength: 20
+        name:
+          type: string
+          maxLength: 150
+        description:
+          type: string
+        faculty:
+          type: string
+          format: uuid
+        faculty_name:
+          type: string
+          readOnly: true
+        is_active:
+          type: boolean
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+        updated_at:
+          type: string
+          format: date-time
+          readOnly: true
+    PatchedEnrollment:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          readOnly: true
+        application:
+          type: string
+          format: uuid
+        application_number:
+          type: string
+          readOnly: true
+        student_id:
+          type: string
+          readOnly: true
+        student_name:
+          type: string
+          readOnly: true
+        programme:
+          type: string
+          format: uuid
+        programme_name:
+          type: string
+          readOnly: true
+        academic_session:
+          type: string
+          format: uuid
+        academic_session_name:
+          type: string
+          readOnly: true
+        semester:
+          type: string
+          format: uuid
+        semester_name:
+          type: string
+          readOnly: true
+        status:
+          $ref: '#/components/schemas/EnrollmentStatusEnum'
+        status_display:
+          type: string
+          readOnly: true
+        enrollment_date:
+          type: string
+          format: date
+          readOnly: true
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+        updated_at:
+          type: string
+          format: date-time
+          readOnly: true
+    PatchedFaculty:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          readOnly: true
+        code:
+          type: string
+          maxLength: 10
+        name:
+          type: string
+          maxLength: 150
+        description:
+          type: string
+        is_active:
+          type: boolean
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+        updated_at:
+          type: string
+          format: date-time
+          readOnly: true
+    PatchedProgramme:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          readOnly: true
+        code:
+          type: string
+          maxLength: 20
+        name:
+          type: string
+          maxLength: 200
+        award:
+          type: string
+          description: 'Example: Certificate, Diploma, BSc, BA, BEng, MSc, MBA'
+          maxLength: 50
+        duration_years:
+          type: integer
+          maximum: 9223372036854775807
+          minimum: 0
+          format: int64
+        description:
+          type: string
+        department:
+          type: string
+          format: uuid
+        department_name:
+          type: string
+          readOnly: true
+        faculty_name:
+          type: string
+          readOnly: true
+        is_active:
+          type: boolean
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+        updated_at:
+          type: string
+          format: date-time
+          readOnly: true
+    PatchedSemester:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          readOnly: true
+        academic_session:
+          type: string
+          format: uuid
+        academic_session_name:
+          type: string
+          readOnly: true
+        name:
+          $ref: '#/components/schemas/NameEnum'
+        semester_name:
+          type: string
+          readOnly: true
+        start_date:
+          type: string
+          format: date
+        end_date:
+          type: string
+          format: date
+        is_current:
+          type: boolean
+        is_active:
+          type: boolean
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+        updated_at:
+          type: string
+          format: date-time
+          readOnly: true
+    PatchedStudentApplication:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          readOnly: true
+        application_number:
+          type: string
+          readOnly: true
+        academic_session:
+          type: string
+          format: uuid
+        academic_session_name:
+          type: string
+          readOnly: true
+        programme:
+          type: string
+          format: uuid
+        programme_name:
+          type: string
+          readOnly: true
+        department_name:
+          type: string
+          readOnly: true
+        faculty_name:
+          type: string
+          readOnly: true
+        first_name:
+          type: string
+          maxLength: 100
+        middle_name:
+          type: string
+          maxLength: 100
+        last_name:
+          type: string
+          maxLength: 100
+        date_of_birth:
+          type: string
+          format: date
+        gender:
+          $ref: '#/components/schemas/GenderEnum'
+        gender_display:
+          type: string
+          readOnly: true
+        email:
+          type: string
+          format: email
+          maxLength: 254
+        phone_number:
+          type: string
+          maxLength: 20
+        nationality:
+          type: string
+          maxLength: 100
+        address:
+          type: string
+        status:
+          $ref: '#/components/schemas/StudentApplicationStatusEnum'
+        status_display:
+          type: string
+          readOnly: true
+        submitted_at:
+          type: string
+          format: date-time
+          nullable: true
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+        updated_at:
+          type: string
+          format: date-time
+          readOnly: true
+    PatchedStudentProfile:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          readOnly: true
+        enrollment:
+          type: string
+          format: uuid
+        student_id:
+          type: string
+          readOnly: true
+        student_name:
+          type: string
+          readOnly: true
+        programme_name:
+          type: string
+          readOnly: true
+        academic_session_name:
+          type: string
+          readOnly: true
+        profile_photo:
+          type: string
+          format: uri
+          nullable: true
+        national_id_number:
+          type: string
+          maxLength: 50
+        passport_number:
+          type: string
+          maxLength: 50
+        marital_status:
+          $ref: '#/components/schemas/MaritalStatusEnum'
+        marital_status_display:
+          type: string
+          readOnly: true
+        religion:
+          type: string
+          maxLength: 100
+        occupation:
+          type: string
+          maxLength: 150
+        emergency_contact_name:
+          type: string
+          maxLength: 150
+        emergency_contact_phone:
+          type: string
+          pattern: ^\+?[0-9]{7,15}$
+          maxLength: 20
+        emergency_contact_relationship:
+          type: string
+          maxLength: 100
+        guardian_name:
+          type: string
+          maxLength: 150
+        guardian_phone:
+          type: string
+          pattern: ^\+?[0-9]{7,15}$
+          maxLength: 20
+        guardian_email:
+          oneOf:
+          - type: string
+            format: email
+            maxLength: 254
+          - type: string
+            maxLength: 0
+        guardian_address:
+          type: string
+        medical_conditions:
+          type: string
+        allergies:
+          type: string
+        blood_group:
+          oneOf:
+          - $ref: '#/components/schemas/BloodGroupEnum'
+          - $ref: '#/components/schemas/BlankEnum'
+        disability:
+          type: string
+        biography:
+          type: string
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+        updated_at:
+          type: string
+          format: date-time
+          readOnly: true
+    Programme:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          readOnly: true
+        code:
+          type: string
+          maxLength: 20
+        name:
+          type: string
+          maxLength: 200
+        award:
+          type: string
+          description: 'Example: Certificate, Diploma, BSc, BA, BEng, MSc, MBA'
+          maxLength: 50
+        duration_years:
+          type: integer
+          maximum: 9223372036854775807
+          minimum: 0
+          format: int64
+        description:
+          type: string
+        department:
+          type: string
+          format: uuid
+        department_name:
+          type: string
+          readOnly: true
+        faculty_name:
+          type: string
+          readOnly: true
+        is_active:
+          type: boolean
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+        updated_at:
+          type: string
+          format: date-time
+          readOnly: true
+      required:
+      - award
+      - code
+      - created_at
+      - department
+      - department_name
+      - faculty_name
+      - id
+      - name
+      - updated_at
+    Semester:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          readOnly: true
+        academic_session:
+          type: string
+          format: uuid
+        academic_session_name:
+          type: string
+          readOnly: true
+        name:
+          $ref: '#/components/schemas/NameEnum'
+        semester_name:
+          type: string
+          readOnly: true
+        start_date:
+          type: string
+          format: date
+        end_date:
+          type: string
+          format: date
+        is_current:
+          type: boolean
+        is_active:
+          type: boolean
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+        updated_at:
+          type: string
+          format: date-time
+          readOnly: true
+      required:
+      - academic_session
+      - academic_session_name
+      - created_at
+      - end_date
+      - id
+      - name
+      - semester_name
+      - start_date
+      - updated_at
+    SemesterEnum:
+      enum:
+      - FIRST
+      - SECOND
+      - SUMMER
+      type: string
+      description: |-
+        * `FIRST` - First Semester
+        * `SECOND` - Second Semester
+        * `SUMMER` - Summer
+    StudentApplication:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          readOnly: true
+        application_number:
+          type: string
+          readOnly: true
+        academic_session:
+          type: string
+          format: uuid
+        academic_session_name:
+          type: string
+          readOnly: true
+        programme:
+          type: string
+          format: uuid
+        programme_name:
+          type: string
+          readOnly: true
+        department_name:
+          type: string
+          readOnly: true
+        faculty_name:
+          type: string
+          readOnly: true
+        first_name:
+          type: string
+          maxLength: 100
+        middle_name:
+          type: string
+          maxLength: 100
+        last_name:
+          type: string
+          maxLength: 100
+        date_of_birth:
+          type: string
+          format: date
+        gender:
+          $ref: '#/components/schemas/GenderEnum'
+        gender_display:
+          type: string
+          readOnly: true
+        email:
+          type: string
+          format: email
+          maxLength: 254
+        phone_number:
+          type: string
+          maxLength: 20
+        nationality:
+          type: string
+          maxLength: 100
+        address:
+          type: string
+        status:
+          $ref: '#/components/schemas/StudentApplicationStatusEnum'
+        status_display:
+          type: string
+          readOnly: true
+        submitted_at:
+          type: string
+          format: date-time
+          nullable: true
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+        updated_at:
+          type: string
+          format: date-time
+          readOnly: true
+      required:
+      - academic_session
+      - academic_session_name
+      - address
+      - application_number
+      - created_at
+      - date_of_birth
+      - department_name
+      - email
+      - faculty_name
+      - first_name
+      - gender
+      - gender_display
+      - id
+      - last_name
+      - nationality
+      - phone_number
+      - programme
+      - programme_name
+      - status_display
+      - updated_at
+    StudentApplicationStatusEnum:
+      enum:
+      - DRAFT
+      - SUBMITTED
+      - UNDER_REVIEW
+      - ACCEPTED
+      - REJECTED
+      - WAITLISTED
+      - DEFERRED
+      type: string
+      description: |-
+        * `DRAFT` - Draft
+        * `SUBMITTED` - Submitted
+        * `UNDER_REVIEW` - Under Review
+        * `ACCEPTED` - Accepted
+        * `REJECTED` - Rejected
+        * `WAITLISTED` - Waitlisted
+        * `DEFERRED` - Deferred
+    StudentProfile:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          readOnly: true
+        enrollment:
+          type: string
+          format: uuid
+        student_id:
+          type: string
+          readOnly: true
+        student_name:
+          type: string
+          readOnly: true
+        programme_name:
+          type: string
+          readOnly: true
+        academic_session_name:
+          type: string
+          readOnly: true
+        profile_photo:
+          type: string
+          format: uri
+          nullable: true
+        national_id_number:
+          type: string
+          maxLength: 50
+        passport_number:
+          type: string
+          maxLength: 50
+        marital_status:
+          $ref: '#/components/schemas/MaritalStatusEnum'
+        marital_status_display:
+          type: string
+          readOnly: true
+        religion:
+          type: string
+          maxLength: 100
+        occupation:
+          type: string
+          maxLength: 150
+        emergency_contact_name:
+          type: string
+          maxLength: 150
+        emergency_contact_phone:
+          type: string
+          pattern: ^\+?[0-9]{7,15}$
+          maxLength: 20
+        emergency_contact_relationship:
+          type: string
+          maxLength: 100
+        guardian_name:
+          type: string
+          maxLength: 150
+        guardian_phone:
+          type: string
+          pattern: ^\+?[0-9]{7,15}$
+          maxLength: 20
+        guardian_email:
+          oneOf:
+          - type: string
+            format: email
+            maxLength: 254
+          - type: string
+            maxLength: 0
+        guardian_address:
+          type: string
+        medical_conditions:
+          type: string
+        allergies:
+          type: string
+        blood_group:
+          oneOf:
+          - $ref: '#/components/schemas/BloodGroupEnum'
+          - $ref: '#/components/schemas/BlankEnum'
+        disability:
+          type: string
+        biography:
+          type: string
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+        updated_at:
+          type: string
+          format: date-time
+          readOnly: true
+      required:
+      - academic_session_name
+      - created_at
+      - emergency_contact_name
+      - emergency_contact_phone
+      - emergency_contact_relationship
+      - enrollment
+      - guardian_name
+      - guardian_phone
+      - id
+      - marital_status_display
+      - programme_name
+      - student_id
+      - student_name
+      - updated_at
+  securitySchemes:
+    basicAuth:
+      type: http
+      scheme: basic
+    cookieAuth:
+      type: apiKey
+      in: cookie
+      name: sessionid
