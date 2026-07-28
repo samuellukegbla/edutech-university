@@ -15,8 +15,6 @@ class CourseViewSet(viewsets.ModelViewSet):
     serializer_class = CourseSerializer
     pagination_class = StandardResultsSetPagination
 
-    queryset = CourseSelector.list_courses()
-
     filter_backends = [
         DjangoFilterBackend,
         filters.SearchFilter,
@@ -42,6 +40,9 @@ class CourseViewSet(viewsets.ModelViewSet):
         "level",
         "code",
     ]
+
+    def get_queryset(self):
+        return CourseSelector.list_courses()
 
     def perform_create(self, serializer):
         course = CourseService.create_course(
