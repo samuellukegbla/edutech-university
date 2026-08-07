@@ -1,7 +1,8 @@
 openapi: 3.0.3
 info:
-  title: ''
-  version: 0.0.0
+  title: EduTech University API
+  version: 1.0.0
+  description: Student Information and Learning Management System API
 paths:
   /api/schema/:
     get:
@@ -2184,6 +2185,200 @@ paths:
       responses:
         '204':
           description: No response body
+  /api/v1/course-registrations/:
+    get:
+      operationId: v1_course_registrations_list
+      parameters:
+      - in: query
+        name: course_offering
+        schema:
+          type: string
+          format: uuid
+      - in: query
+        name: enrollment
+        schema:
+          type: string
+          format: uuid
+      - name: ordering
+        required: false
+        in: query
+        description: Which field to use when ordering the results.
+        schema:
+          type: string
+      - name: page
+        required: false
+        in: query
+        description: A page number within the paginated result set.
+        schema:
+          type: integer
+      - name: page_size
+        required: false
+        in: query
+        description: Number of results to return per page.
+        schema:
+          type: integer
+      - name: search
+        required: false
+        in: query
+        description: A search term.
+        schema:
+          type: string
+      - in: query
+        name: status
+        schema:
+          type: string
+      tags:
+      - v1
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedCourseRegistrationList'
+          description: ''
+    post:
+      operationId: v1_course_registrations_create
+      tags:
+      - v1
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CourseRegistration'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/CourseRegistration'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/CourseRegistration'
+        required: true
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CourseRegistration'
+          description: ''
+  /api/v1/course-registrations/{id}/:
+    get:
+      operationId: v1_course_registrations_retrieve
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+        description: A UUID string identifying this Course Registration.
+        required: true
+      tags:
+      - v1
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CourseRegistration'
+          description: ''
+    put:
+      operationId: v1_course_registrations_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+        description: A UUID string identifying this Course Registration.
+        required: true
+      tags:
+      - v1
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CourseRegistration'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/CourseRegistration'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/CourseRegistration'
+        required: true
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CourseRegistration'
+          description: ''
+    patch:
+      operationId: v1_course_registrations_partial_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+        description: A UUID string identifying this Course Registration.
+        required: true
+      tags:
+      - v1
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedCourseRegistration'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedCourseRegistration'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedCourseRegistration'
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CourseRegistration'
+          description: ''
+    delete:
+      operationId: v1_course_registrations_destroy
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+        description: A UUID string identifying this Course Registration.
+        required: true
+      tags:
+      - v1
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '204':
+          description: No response body
   /api/v1/courses/:
     get:
       operationId: v1_courses_list
@@ -2397,6 +2592,24 @@ paths:
       - {}
       responses:
         '204':
+          description: No response body
+  /api/v1/transcript/{student_id}/:
+    get:
+      operationId: v1_transcript_retrieve
+      parameters:
+      - in: path
+        name: student_id
+        schema:
+          type: string
+        required: true
+      tags:
+      - v1
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
           description: No response body
 components:
   schemas:
@@ -2625,6 +2838,64 @@ components:
       - semester
       - title
       - updated_at
+    CourseRegistration:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          readOnly: true
+        enrollment:
+          type: string
+          format: uuid
+        student_id:
+          type: string
+          readOnly: true
+        course_offering:
+          type: string
+          format: uuid
+        course_code:
+          type: string
+          readOnly: true
+        course_title:
+          type: string
+          readOnly: true
+        status:
+          $ref: '#/components/schemas/CourseRegistrationStatusEnum'
+        registered_at:
+          type: string
+          format: date-time
+          readOnly: true
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+        updated_at:
+          type: string
+          format: date-time
+          readOnly: true
+      required:
+      - course_code
+      - course_offering
+      - course_title
+      - created_at
+      - enrollment
+      - id
+      - registered_at
+      - student_id
+      - updated_at
+    CourseRegistrationStatusEnum:
+      enum:
+      - PENDING
+      - APPROVED
+      - DROPPED
+      - REJECTED
+      type: string
+      description: |-
+        * `PENDING` - Pending
+        * `APPROVED` - Approved
+        * `DROPPED` - Dropped
+        * `REJECTED` - Rejected
     CourseTypeEnum:
       enum:
       - CORE
@@ -2955,6 +3226,29 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/Course'
+    PaginatedCourseRegistrationList:
+      type: object
+      required:
+      - count
+      - results
+      properties:
+        count:
+          type: integer
+          example: 123
+        next:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=4
+        previous:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=2
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/CourseRegistration'
     PaginatedDepartmentList:
       type: object
       required:
@@ -3269,6 +3563,42 @@ components:
           $ref: '#/components/schemas/CourseTypeEnum'
         is_active:
           type: boolean
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+        updated_at:
+          type: string
+          format: date-time
+          readOnly: true
+    PatchedCourseRegistration:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          readOnly: true
+        enrollment:
+          type: string
+          format: uuid
+        student_id:
+          type: string
+          readOnly: true
+        course_offering:
+          type: string
+          format: uuid
+        course_code:
+          type: string
+          readOnly: true
+        course_title:
+          type: string
+          readOnly: true
+        status:
+          $ref: '#/components/schemas/CourseRegistrationStatusEnum'
+        registered_at:
+          type: string
+          format: date-time
+          readOnly: true
         created_at:
           type: string
           format: date-time

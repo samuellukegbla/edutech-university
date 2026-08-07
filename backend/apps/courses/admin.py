@@ -147,6 +147,7 @@ class CourseRegistrationAdmin(admin.ModelAdmin):
 
     list_filter = (
         "status",
+        "registered_at",
     )
 
     search_fields = (
@@ -155,9 +156,17 @@ class CourseRegistrationAdmin(admin.ModelAdmin):
         "course_offering__course__title",
     )
 
+    readonly_fields = (
+        "registered_at",
+    )
+
     autocomplete_fields = (
         "enrollment",
         "course_offering",
+    )
+
+    ordering = (
+        "-registered_at",
     )
 
 

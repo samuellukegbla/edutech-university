@@ -1,11 +1,23 @@
 from apps.courses.models import CourseRegistration
+from .validation import RegistrationValidationService
 
 
 class CourseRegistrationService:
 
     @staticmethod
-    def create_registration(validated_data):
-        return CourseRegistration.objects.create(**validated_data)
+    def register_student(
+        enrollment,
+        course_offering,
+    ):
+        RegistrationValidationService.validate(
+            enrollment=enrollment,
+            course_offering=course_offering,
+        )
+
+        return CourseRegistration.objects.create(
+            enrollment=enrollment,
+            course_offering=course_offering,
+        )
 
     @staticmethod
     def update_registration(

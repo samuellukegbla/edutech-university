@@ -145,3 +145,13 @@ REST_FRAMEWORK = {
         "apps.common.exceptions.custom_exception_handler"
     ),
 }
+
+
+SPECTACULAR_SETTINGS = {
+    "TITLE": "EduTech University API",
+    "DESCRIPTION": (
+        "Student Information and Learning "
+        "Management System API"
+    ),
+    "VERSION": "1.0.0",
+}

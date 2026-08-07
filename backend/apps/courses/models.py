@@ -107,11 +107,29 @@ class CoursePrerequisite(UUIDModel, TimeStampedModel):
     )
 
     def clean(self):
+        super().clean()
+
         if self.course == self.prerequisite:
             raise ValidationError(
                 "A course cannot be a prerequisite of itself."
-        )
+            )
 
+        if (
+            CoursePrerequisite.objects.filter(
+                course=self.prerequisite,
+                prerequisite=self.course,
+            )
+            .exclude(pk=self.pk)
+            .exists()
+      ):
+            raise ValidationError(
+                "Circular prerequisites are not allowed."
+            )
+
+    def save(self, *args, **kwargs):
+        self.full_clean()
+        super().save(*args, **kwargs)
+    
     class Meta:
         unique_together = (
             "course",
@@ -562,10 +580,6 @@ class FinalGrade(UUIDModel, TimeStampedModel):
         null=True,
         blank=True,
     )
-
-    def save(self, *args, **kwargs):
-        self.full_clean()
-        super().save(*args, **kwargs)
 
     class Meta:
         ordering = [

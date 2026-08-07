@@ -1,6 +1,6 @@
 from rest_framework.routers import DefaultRouter
 
-from .views import CourseViewSet
+from apps.courses.views.course import CourseViewSet
 
 router = DefaultRouter()
 

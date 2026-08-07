@@ -2,6 +2,8 @@ import django_filters
 
 from .models import Course
 
+from .models import CourseRegistration
+
 
 class CourseFilter(django_filters.FilterSet):
     code = django_filters.CharFilter(
@@ -49,4 +51,27 @@ class CourseFilter(django_filters.FilterSet):
             "semester",
             "course_type",
             "is_active",
+        ]
+
+
+class CourseRegistrationFilter(django_filters.FilterSet):
+    status = django_filters.CharFilter(
+        field_name="status",
+        lookup_expr="iexact",
+    )
+
+    enrollment = django_filters.UUIDFilter(
+        field_name="enrollment",
+    )
+
+    course_offering = django_filters.UUIDFilter(
+        field_name="course_offering",
+    )
+
+    class Meta:
+        model = CourseRegistration
+        fields = [
+            "status",
+            "enrollment",
+            "course_offering",
         ]

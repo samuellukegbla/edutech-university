@@ -1,5 +1,7 @@
 from rest_framework import serializers
 
+from drf_spectacular.utils import extend_schema_field
+
 from .models import (
     Faculty,
     Department,
@@ -353,6 +355,7 @@ class EnrollmentSerializer(serializers.ModelSerializer):
             "updated_at",
         )
 
+    @extend_schema_field(str)
     def get_student_name(self, obj):
         return " ".join(
             filter(
@@ -428,6 +431,7 @@ class StudentProfileSerializer(serializers.ModelSerializer):
             "updated_at",
         )
 
+    @extend_schema_field(str)
     def get_student_name(self, obj):
         application = obj.enrollment.application
 

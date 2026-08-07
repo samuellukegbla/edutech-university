@@ -1,14 +1,13 @@
 from django_filters.rest_framework import DjangoFilterBackend
-from rest_framework import filters, status, viewsets
-from rest_framework.response import Response
+from rest_framework import filters, viewsets
 
 from apps.common.pagination import StandardResultsSetPagination
 
-from .filters import CourseFilter
-from .models import Course
-from .selectors import CourseSelector
-from .serializers import CourseSerializer
-from .services import CourseService
+from apps.courses.filters import CourseFilter
+from apps.courses.models import Course
+from apps.courses.selectors import CourseSelector
+from apps.courses.serializers import CourseSerializer
+from apps.courses.services import CourseService
 
 
 class CourseViewSet(viewsets.ModelViewSet):
