@@ -1,6 +1,6 @@
 from collections import defaultdict
 
-from apps.academics.models import Programme, CurriculumCourse
+from apps.academics.models import CurriculumCourse
 
 
 class StudyPlanService:
@@ -33,13 +33,19 @@ class StudyPlanService:
 
         years = defaultdict(lambda: defaultdict(list))
 
+        total_programme_credit_hours = 0
+
         for item in curriculum_courses:
+            credit_hours = item.course.credit_hours
+
+            total_programme_credit_hours += credit_hours
+
             years[item.curriculum.year][item.curriculum.semester].append(
                 {
                     "id": str(item.course.id),
                     "code": item.course.code,
                     "title": item.course.title,
-                    "credit_hours": item.course.credit_hours,
+                    "credit_hours": credit_hours,
                     "is_core": item.is_core,
                 }
             )
@@ -47,15 +53,23 @@ class StudyPlanService:
         study_plan = []
 
         for year, semesters in sorted(years.items()):
+
             year_data = {
                 "year": year,
                 "semesters": [],
             }
 
             for semester, courses in sorted(semesters.items()):
+
+                semester_credit_hours = sum(
+                    course["credit_hours"]
+                    for course in courses
+                )
+
                 year_data["semesters"].append(
                     {
                         "semester": semester,
+                        "total_credit_hours": semester_credit_hours,
                         "courses": courses,
                     }
                 )
@@ -69,6 +83,7 @@ class StudyPlanService:
                 "name": programme.name,
                 "award": programme.award,
                 "duration_years": programme.duration_years,
+                "total_credit_hours": total_programme_credit_hours,
             },
             "study_plan": study_plan,
         }
