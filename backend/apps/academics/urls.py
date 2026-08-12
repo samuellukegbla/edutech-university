@@ -1,12 +1,13 @@
 from django.urls import include, path
 from rest_framework.routers import DefaultRouter
 
-from .views import (
+from apps.academics.views import (
     FacultyViewSet,
     DepartmentViewSet,
     ProgrammeViewSet,
     CurriculumViewSet,
     CurriculumCourseViewSet,
+    ProgrammeStudyPlanView,
 )
 
 router = DefaultRouter()
@@ -32,10 +33,19 @@ router.register(
 )
 
 router.register(
-    r"curriculum-courses",
+    "curriculum-courses",
     CurriculumCourseViewSet,
+    basename="curriculum-course",
 )
 
 urlpatterns = [
     path("", include(router.urls)),
+]
+
+urlpatterns += [
+    path(
+        "programmes/<int:programme_id>/study-plan/",
+        ProgrammeStudyPlanView.as_view(),
+        name="programme-study-plan",
+    ),
 ]

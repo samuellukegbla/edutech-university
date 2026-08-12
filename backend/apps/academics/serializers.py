@@ -39,9 +39,12 @@ class CurriculumSerializer(
         fields = "__all__"
 
 
-class CurriculumCourseSerializer(
-    serializers.ModelSerializer
-):
+class CurriculumCourseSerializer(serializers.ModelSerializer):
     class Meta:
         model = CurriculumCourse
         fields = "__all__"
+
+
+class ProgrammeStudyPlanSerializer(serializers.Serializer):
+    programme = serializers.DictField()
+    study_plan = serializers.ListField()
