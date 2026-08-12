@@ -6,6 +6,12 @@ from .models import (
     Programme,
 )
 
+from rest_framework import serializers
+
+from apps.academics.models import (
+    Curriculum,
+    CurriculumCourse,
+)
 
 class FacultySerializer(serializers.ModelSerializer):
     class Meta:
@@ -22,4 +28,20 @@ class DepartmentSerializer(serializers.ModelSerializer):
 class ProgrammeSerializer(serializers.ModelSerializer):
     class Meta:
         model = Programme
+        fields = "__all__"
+
+
+class CurriculumSerializer(
+    serializers.ModelSerializer
+):
+    class Meta:
+        model = Curriculum
+        fields = "__all__"
+
+
+class CurriculumCourseSerializer(
+    serializers.ModelSerializer
+):
+    class Meta:
+        model = CurriculumCourse
         fields = "__all__"

@@ -1,5 +1,11 @@
 from django.db import models
 
+from apps.common.models import (
+    UUIDModel,
+    TimeStampedModel,
+)
+
+from apps.courses.models import Course
 
 class Faculty(models.Model):
     code = models.CharField(
@@ -69,3 +75,56 @@ class Programme(models.Model):
 
     def __str__(self):
         return self.name
+
+
+class Curriculum(UUIDModel, TimeStampedModel):
+    programme = models.ForeignKey(
+        Programme,
+        on_delete=models.CASCADE,
+        related_name="curricula",
+    )
+
+    year = models.PositiveIntegerField()
+    semester = models.PositiveIntegerField()
+
+    class Meta:
+        ordering = ["year", "semester"]
+        unique_together = (
+            "programme",
+            "year",
+            "semester",
+        )
+
+    def __str__(self):
+        return (
+            f"{self.programme.name} "
+            f"Year {self.year} "
+            f"Semester {self.semester}"
+        )
+
+
+class CurriculumCourse(UUIDModel, TimeStampedModel):
+    curriculum = models.ForeignKey(
+        Curriculum,
+        on_delete=models.CASCADE,
+        related_name="courses",
+    )
+
+    course = models.ForeignKey(
+        Course,
+        on_delete=models.CASCADE,
+    )
+
+    is_core = models.BooleanField(default=True)
+
+    class Meta:
+        unique_together = (
+            "curriculum",
+            "course",
+        )
+
+    def __str__(self):
+        return (
+            f"{self.curriculum} - "
+            f"{self.course.code}"
+        )

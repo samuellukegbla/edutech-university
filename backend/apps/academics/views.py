@@ -12,6 +12,16 @@ from .serializers import (
     ProgrammeSerializer,
 )
 
+from apps.academics.models import (
+    Curriculum,
+    CurriculumCourse,
+)
+
+from apps.academics.serializers import (
+    CurriculumSerializer,
+    CurriculumCourseSerializer,
+)
+
 
 class FacultyViewSet(viewsets.ModelViewSet):
     queryset = Faculty.objects.all()
@@ -26,3 +36,17 @@ class DepartmentViewSet(viewsets.ModelViewSet):
 class ProgrammeViewSet(viewsets.ModelViewSet):
     queryset = Programme.objects.all()
     serializer_class = ProgrammeSerializer
+
+
+class CurriculumViewSet(
+    viewsets.ModelViewSet
+):
+    queryset = Curriculum.objects.all()
+    serializer_class = CurriculumSerializer
+
+
+class CurriculumCourseViewSet(
+    viewsets.ModelViewSet
+):
+    queryset = CurriculumCourse.objects.all()
+    serializer_class = CurriculumCourseSerializer
