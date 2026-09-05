@@ -13,6 +13,12 @@ urlpatterns = [
     # Django Admin
     path("admin/", admin.site.urls),
 
+    # Students API
+    path(
+        "api/v1/students/",
+        include("apps.students.urls"),
+    ),
+
     # Courses API
     path(
         "api/v1/",

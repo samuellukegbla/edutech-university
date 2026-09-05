@@ -8,6 +8,7 @@ from apps.academics.views import (
     CurriculumViewSet,
     CurriculumCourseViewSet,
     ProgrammeStudyPlanView,
+    TranscriptAPIView,
 )
 
 router = DefaultRouter()
@@ -47,5 +48,10 @@ urlpatterns += [
         "programmes/<int:programme_id>/study-plan/",
         ProgrammeStudyPlanView.as_view(),
         name="programme-study-plan",
+    ),
+    path(
+        "transcript/<str:student_id>/",
+        TranscriptAPIView.as_view(),
+        name="transcript",
     ),
 ]

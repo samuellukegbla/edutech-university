@@ -30,6 +30,11 @@ from apps.academics.models import Programme
 from apps.academics.serializers import ProgrammeStudyPlanSerializer
 from apps.academics.services.study_plan import StudyPlanService
 
+from rest_framework.decorators import action
+
+from apps.admissions.models import Enrollment
+from apps.academics.services.transcript import TranscriptService
+
 class FacultyViewSet(viewsets.ModelViewSet):
     queryset = Faculty.objects.all()
     serializer_class = FacultySerializer
@@ -43,6 +48,22 @@ class DepartmentViewSet(viewsets.ModelViewSet):
 class ProgrammeViewSet(viewsets.ModelViewSet):
     queryset = Programme.objects.all()
     serializer_class = ProgrammeSerializer
+    @action(
+    detail=False,
+    methods=["get"],
+    url_path="transcript/(?P<student_id>[^/.]+)"
+    )
+    def transcript(self, request, student_id=None):
+
+        enrollment = Enrollment.objects.get(
+            student_id=student_id
+        )
+
+        data = TranscriptService.generate(
+           enrollment
+        )
+
+        return Response(data)
 
 
 class CurriculumViewSet(
@@ -84,3 +105,17 @@ class ProgrammeStudyPlanView(APIView):
             serializer.data,
             status=status.HTTP_200_OK,
         )
+
+
+class TranscriptAPIView(APIView):
+
+    def get(self, request, student_id):
+        enrollment = Enrollment.objects.get(
+            student_id=student_id
+        )
+
+        data = TranscriptService.generate(
+            enrollment
+        )
+
+        return Response(data)
