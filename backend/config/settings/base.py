@@ -61,6 +61,7 @@ INSTALLED_APPS = [
     "apps.admissions.apps.AdmissionsConfig",
     "apps.courses.apps.CoursesConfig",
     "apps.academics.apps.AcademicsConfig",
+    "apps.finance.apps.FinanceConfig",
 ]
 
 MIDDLEWARE = [
