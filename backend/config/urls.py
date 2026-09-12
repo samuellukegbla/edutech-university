@@ -48,8 +48,12 @@ urlpatterns = [
         name="redoc",
     ),
     path(
-    "api/v1/academics/",
-    include("apps.academics.urls"),
+        "api/v1/academics/",
+        include("apps.academics.urls"),
+    ),
+    path(
+        "api/finance/",
+        include("apps.finance.urls")
     ),
 ]
 
